@@ -19,9 +19,10 @@
   left: 35%;
   width: 30%;
   z-index: 9;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   animation: flashAnimation 5s ease-in-out forwards;
+  border-radius: 25px;
   &.error {
     border: solid 1px #b33400;
     background-color: #d35400;
@@ -36,6 +37,6 @@
   }
   .flash-message__text {
     color: white;
-    font-size: 14px;
+    font-size: 16px;
   }
 }
