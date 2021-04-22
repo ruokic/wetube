@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import passport from "passport";
 import session from "express-session";
 import path from "path";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
@@ -34,6 +35,8 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URL })
 }));
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
