@@ -35,6 +35,6 @@ block content
                 each comment in video.comments.reverse()
                     li
                         span=comment.text
-                        if loggedUser && loggedUser.id === comment.creator
+                        if loggedUser && comment.creator.id === loggedUser.id
                             a(href=routes.deleteComment(comment.id))
                                 i.fas.fa-times
