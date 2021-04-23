@@ -1,4 +1,5 @@
 import getBlobDuration from "get-blob-duration";
+import { EnvironmentPlugin } from "webpack";
 
 const videoContainer = document.getElementById('jsVideoPlayer');
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
@@ -49,6 +50,7 @@ const handlePlayClick = () => {
 
 const spacebarHandler = (event) => {
     const { key } = event;
+    event.preventDefault();
     if (key === " ") {
         handlePlayClick();
     }
