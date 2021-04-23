@@ -6,7 +6,7 @@ mixin videoPlayer(video = {})
                 span#jsPlayButton
                     i.fas.fa-play
             .videoPlayer__column 
-                input(id="videoTimeBar", type="range", max="1", min="0", step="1", value="0")
+                input#jsVideoTimeBar(type="range", max="1", min="0", step="1", value="0")
                 span
                     span#currentTime 00:00:00
                     |/
