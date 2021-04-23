@@ -34,10 +34,6 @@
     }
   }
   .video__comments {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     margin-top: 25px;
     text-align: center;
     .video__comment-number {
@@ -52,6 +48,12 @@
     }
     .video__comments-list {
       margin-top: 50px;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     li {
       max-width: 80%;
