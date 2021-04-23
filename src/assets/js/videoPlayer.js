@@ -2,12 +2,32 @@ import getBlobDuration from "get-blob-duration";
 
 const videoContainer = document.getElementById('jsVideoPlayer');
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
+const ctrl = document.getElementById("jsVideoControllers");
 const playBtn = document.getElementById("jsPlayButton");
+const timeBar = document.getElementById("videoTimeBar");
 const volumeBtn = document.getElementById("jsVolumeButton");
 const fullScrnBtn = document.getElementById("jsFullScreen");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const volumeRange = document.getElementById("jsVolume");
+
+const ctrlHandler = () => {
+    const disappearance = () => {
+      ctrl.style.opacity = "0";
+      videoPlayer.style.cursor = "none";
+    };
+    ctrl.style.opacity = "1";
+    videoPlayer.style.cursor = "auto";
+    const timeoutId = setTimeout(disappearance, 5000);
+    videoPlayer.addEventListener("mousemove", () => {
+      clearTimeout(timeoutId);
+      videoPlayer.addEventListener("mousemove", ctrlHandler);
+    });
+    videoPlayer.addEventListener("click", () => {
+      clearTimeout(timeoutId);
+      videoPlayer.addEventListener("click", ctrlHandler);
+    });
+  };
 
 const registerView = () => {
     const videoId = window.location.href.split("/videos/")[1];
@@ -26,6 +46,13 @@ const handlePlayClick = () => {
         playBtn.innerHTML = '<i class="fas fa-play"></i>';
     }
 }
+
+const spacebarHandler = (event) => {
+    const { key } = event;
+    if (key === " ") {
+        handlePlayClick();
+    }
+  };
 
 const handleVolumeClick = () => {
     if (videoPlayer.muted) {
@@ -96,6 +123,7 @@ const formatDate = (totalSeconds) => {
 
 const getCurrentTime = () => {
     currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
+    timeBar.value = videoPlayer.currentTime;
 }
 
 const setTotalTime = async () => {
@@ -103,7 +131,12 @@ const setTotalTime = async () => {
     const duration = await getBlobDuration(blob);
     const totalTimeString = formatDate(duration);
     totalTime.innerHTML = totalTimeString;
+    timeBar.max = videoPlayer.duration;
 }
+
+const timeBarHandler = () => {
+    videoPlayer.currentTime = timeBar.value;
+};
 
 const handleEnded = () => {
     registerView();
@@ -126,14 +159,20 @@ const handleVolumeDrag = (event) => {
 }
 
 const init = () => {
+    ctrlHandler();
     videoPlayer.volume = "0.5";
     playBtn.addEventListener("click", handlePlayClick);
+    document.addEventListener("keydown", spacebarHandler);
     volumeBtn.addEventListener("click", handleVolumeClick);
     fullScrnBtn.addEventListener("click", goFullScreen);
     videoPlayer.addEventListener("loadedmetadata", setTotalTime);
     videoPlayer.addEventListener("timeupdate", getCurrentTime);
     videoPlayer.addEventListener("ended", handleEnded);
     volumeRange.addEventListener("input", handleVolumeDrag);
+    videoPlayer.addEventListener("mousemove", ctrlHandler);
+    videoPlayer.addEventListener("click", ctrlHandler);
+    timeBar.addEventListener("change", timeBarHandler);
+    setTimeout(setTotalTime, 1000);
 }
 
 if (videoContainer) {
