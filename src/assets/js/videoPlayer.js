@@ -49,8 +49,8 @@ const handlePlayClick = () => {
 
 const spacebarHandler = (event) => {
     const { key } = event;
-    event.preventDefault();
     if (key === " ") {
+        event.preventDefault();
         handlePlayClick();
     }
   };
