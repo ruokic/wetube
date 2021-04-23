@@ -13,7 +13,7 @@ block content
             h5.video__title=video.title
             p.video__description=video.description
             .video__author 
-                |Uploaded by
+                |Uploaded by 
                 a(href=`/users/${routes.userDetail(video.creator.id)}`)=video.creator.name
             if video.views === 1
                 span.video__views 1 view 
@@ -28,12 +28,13 @@ block content
                 span.video__comment-number
                     span#jsCommentNumber=video.comments.length
                     | comments
-            form.add_comment#jsAddComment
-                input(type="text", placeholder="Add a comment") 
+            if loggedUser
+                form.add__comment#jsAddComment
+                    input(type="text", placeholder="Add a comment") 
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
                     li
                         span=comment.text
-                        if loggedUser && loggedUser.id === comment.creator.id 
+                        if loggedUser && loggedUser.id === comment.creator
                             a(href=routes.deleteComment(comment.id))
                                 i.fas.fa-times

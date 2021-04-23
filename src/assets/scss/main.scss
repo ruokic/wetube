@@ -16,13 +16,14 @@ main {
   max-width: 1200px;
   margin: 0 auto;
   min-height: 70vh;
+  padding: 0px 20px;
 }
 
 button,
 input:not([type="file"]),
 textarea,
 .fileUpload {
-  padding: 7px, 10px;
+  padding: 7px 10px;
   width: 100%;
   border: none;
   border-radius: 5px;

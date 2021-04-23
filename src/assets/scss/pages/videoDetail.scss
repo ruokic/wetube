@@ -11,6 +11,7 @@
       margin-bottom: 25px;
     }
     .video__author {
+      margin-bottom: 5px;
       a {
         color: #3498db;
       }
@@ -49,8 +50,8 @@
       margin-top: 50px;
     }
     li {
-      background-color: #3498db;
-      color: white;
+      background-color: $white;
+      color: $black;
       padding: 15px;
       border-radius: 20px;
       border-bottom-left-radius: 0px;
